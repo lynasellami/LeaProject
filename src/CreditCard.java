@@ -6,35 +6,38 @@ public class CreditCard {
     /** Constructor to initialize CreditCard with owner and credit limit */
     public CreditCard(Person owner, Money creditLimit) {
         this.owner = owner;
-        // TODO: Use the copy constructor for creditLimit for security
+        this.creditLimit = new Money(creditLimit); // Use copy constructor for security
         this.balance = new Money(0); // Initialize balance to zero
     }
 
     /** Accessor to get the balance as a new Money object (for security) */
     public Money getBalance() {
-        // TODO: Return a new Money object with the balance amount
-        return null;
+        return new Money(balance); // Return a copy of the balance
     }
 
     /** Accessor to get the credit limit as a new Money object (for security) */
     public Money getCreditLimit() {
-        // TODO: Return a new Money object with the credit limit amount
-        return null;
+        return new Money(creditLimit); // Return a copy of the credit limit
     }
 
     /** Accessor to get owner's information as a String */
     public String getPersonals() {
-        // TODO: Call toString on the owner object
-        return "";
+        return owner.toString();
     }
 
     /** Method to charge an amount to the credit card */
     public void charge(Money amount) {
-        // TODO: Check if the charge exceeds the credit limit before adding
+        if (balance.add(amount).compareTo(creditLimit) <= 0) {
+            balance = balance.add(amount);
+            System.out.println("Charge: " + amount);
+        } else {
+            System.out.println("Exceeds credit limit");
+        }
     }
 
     /** Method to make a payment on the credit card */
     public void payment(Money amount) {
-        // TODO: Subtract the payment amount from the balance
+        balance = balance.subtract(amount);
+        System.out.println("Payment: " + amount);
     }
 }

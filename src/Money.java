@@ -2,7 +2,6 @@ public class Money {
     private long dollars;
     private long cents;
 
-    /** Constructor to initialize Money object with an amount */
     public Money(double amount) {
         if (amount < 0) {
             System.out.println("Error: Negative amounts of money are not allowed.");
@@ -14,23 +13,11 @@ public class Money {
         }
     }
 
-    /** Copy constructor to create a copy of another Money object */
     public Money(Money other) {
         this.dollars = other.dollars;
         this.cents = other.cents;
     }
 
-    /** Equals method to compare two Money objects */
-    public boolean equals(Money other) {
-        return this.dollars == other.dollars && this.cents == other.cents;
-    }
-
-    /** toString method to format Money object as currency */
-    public String toString() {
-        return String.format("$%d.%02d", dollars, cents);
-    }
-
-    /** Method to add another Money object to this one */
     public Money add(Money otherAmount) {
         Money sum = new Money(0);
         sum.cents = this.cents + otherAmount.cents;
@@ -40,7 +27,6 @@ public class Money {
         return sum;
     }
 
-    /** Method to subtract another Money object from this one */
     public Money subtract(Money amount) {
         Money difference = new Money(0);
         if (this.cents < amount.cents) {
@@ -50,5 +36,23 @@ public class Money {
         difference.dollars = this.dollars - amount.dollars;
         difference.cents = this.cents - amount.cents;
         return difference;
+    }
+
+    public int compareTo(Money amount) {
+        if (this.dollars < amount.dollars || (this.dollars == amount.dollars && this.cents < amount.cents)) {
+            return -1;
+        } else if (this.dollars == amount.dollars && this.cents == amount.cents) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public boolean equals(Money other) {
+        return this.dollars == other.dollars && this.cents == other.cents;
+    }
+
+    public String toString() {
+        return String.format("$%d.%02d", dollars, cents);
     }
 }
