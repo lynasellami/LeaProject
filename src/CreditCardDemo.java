@@ -1,3 +1,6 @@
+/**
+ * This program demonstrates the CreditCard class.
+ */
 public class CreditCardDemo {
     public static void main(String[] args) {
         final Money CREDIT_LIMIT = new Money(1000);

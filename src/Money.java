@@ -1,7 +1,14 @@
+/**
+ * This class represents non-negative amounts of money.
+ */
 public class Money {
-    private long dollars;
-    private long cents;
+    private long dollars; // The number of dollars
+    private long cents;   // The number of cents
 
+    /**
+     * Constructor
+     * @param amount The amount in decimal format
+     */
     public Money(double amount) {
         if (amount < 0) {
             System.out.println("Error: Negative amounts of money are not allowed.");
@@ -13,6 +20,10 @@ public class Money {
         }
     }
 
+    /**
+     * Copy constructor
+     * @param other The Money object to copy
+     */
     public Money(Money other) {
         this.dollars = other.dollars;
         this.cents = other.cents;
@@ -22,7 +33,7 @@ public class Money {
         Money sum = new Money(0);
         sum.cents = this.cents + otherAmount.cents;
         long carryDollars = sum.cents / 100;
-        sum.cents = sum.cents % 100;
+        sum.cents %= 100;
         sum.dollars = this.dollars + otherAmount.dollars + carryDollars;
         return sum;
     }
@@ -30,8 +41,8 @@ public class Money {
     public Money subtract(Money amount) {
         Money difference = new Money(0);
         if (this.cents < amount.cents) {
-            this.dollars = this.dollars - 1;
-            this.cents = this.cents + 100;
+            this.dollars -= 1;
+            this.cents += 100;
         }
         difference.dollars = this.dollars - amount.dollars;
         difference.cents = this.cents - amount.cents;
@@ -39,17 +50,15 @@ public class Money {
     }
 
     public int compareTo(Money amount) {
-        if (this.dollars < amount.dollars || (this.dollars == amount.dollars && this.cents < amount.cents)) {
-            return -1;
-        } else if (this.dollars == amount.dollars && this.cents == amount.cents) {
-            return 0;
-        } else {
-            return 1;
-        }
+        if (this.dollars < amount.dollars) return -1;
+        if (this.dollars > amount.dollars) return 1;
+        if (this.cents < amount.cents) return -1;
+        if (this.cents > amount.cents) return 1;
+        return 0;
     }
 
-    public boolean equals(Money other) {
-        return this.dollars == other.dollars && this.cents == other.cents;
+    public boolean equals(Money amount) {
+        return this.dollars == amount.dollars && this.cents == amount.cents;
     }
 
     public String toString() {
